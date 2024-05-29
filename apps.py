@@ -43,3 +43,4 @@ if last_pnu_check_pnu is not None:
 else:
     new_select_all = select_all
 print('DB 연결 완료.')
+print(new_select_all)
