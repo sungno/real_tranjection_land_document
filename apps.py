@@ -19,13 +19,13 @@ try:
     # 필요한 모듈 다운로드 및 로드
     method_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/method.py"
     method_content = download_script(method_url)
-    load_module_from_string("method", method_content)
-    print(load_module_from_string)
+    a = load_module_from_string("method", method_content)
+    print(a)
     # account.py 다운로드 및 로드
     moduls_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/moduls.py"
     moduls_content = download_script(moduls_url)
-    load_module_from_string("moduls", moduls_content)
-    print(load_module_from_string)
+    b = load_module_from_string("moduls", moduls_content)
+    print(b)
 
     input()
     # DB 연결및
