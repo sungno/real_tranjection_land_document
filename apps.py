@@ -1,1 +1,45 @@
+import cx_Oracle
+
+
 print("Hello World")
+print("DB 연결중...")
+# Oracle 데이터베이스에 연결
+oracle_connection = cx_Oracle.connect('jang', 'jang', 'www.ssucompanion.com:1521/SSUDB')
+oracle_cursor = oracle_connection.cursor()
+
+# last_pnu_check 테이블에서 pnu 컬럼의 첫 번째 값을 추출하는 쿼리
+select_first_pnu_query = "SELECT pnu FROM last_pnu_check FETCH FIRST 1 ROWS ONLY"
+oracle_cursor.execute(select_first_pnu_query)
+first_pnu = oracle_cursor.fetchone()
+
+# 추출한 pnu 값을 last_pnu_check_pnu 변수에 저장
+if first_pnu:
+    last_pnu_check_pnu = first_pnu[0]
+else:
+    last_pnu_check_pnu = None
+
+# kr_land_deal 테이블에서 데이터를 조회하는 쿼리
+select_kr_land_deal_query = """
+    SELECT pnu, addr_1, addr_2, addr_3, addr_4, addr_5 
+    FROM kr_land_deal 
+    WHERE trunc(update_date) >= TRUNC(SYSDATE-7)
+    ORDER BY update_date
+"""
+oracle_cursor.execute(select_kr_land_deal_query)
+select_all = oracle_cursor.fetchall()
+
+# 새로운 데이터를 저장할 리스트 초기화
+new_select_all = []
+
+# 조회된 데이터 중 last_pnu_check_pnu 값 이후의 데이터만 출력하고 리스트에 추가
+if last_pnu_check_pnu is not None:
+    start_printing = False
+    for row in select_all:
+        pnu_value = row[0]
+        if start_printing:
+            new_select_all.append(row)
+        if pnu_value == last_pnu_check_pnu:
+            start_printing = True
+else:
+    new_select_all = select_all
+print('DB 연결 완료.')
