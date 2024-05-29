@@ -24,7 +24,7 @@ try:
     # account.py 다운로드 및 로드
     moduls_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/moduls.py"
     moduls_content = download_script(moduls_url)
-    load_module_from_string("models", moduls_content)
+    load_module_from_string("moduls", moduls_content)
 
     # DB 연결및
     oracle_connection, oracle_cursor, new_select_all = db_connect()
