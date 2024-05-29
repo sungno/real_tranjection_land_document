@@ -1,4 +1,3 @@
-from moduls import *
 from method import *
 import sys
 import types
@@ -31,4 +30,4 @@ try:
     oracle_connection, oracle_cursor, new_select_all = db_connect()
     print(new_select_all)
 except Exception as e:
-    print(f"An error occurred: {e}")
+    print(f"[apps.py] An error occurred: {e}")
