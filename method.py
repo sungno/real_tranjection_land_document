@@ -63,7 +63,7 @@ def ip_connect_change():
 
     # 콤보박스 클릭하여 열기
     combo_box.click_input()
-    dlg.child_window(control_type="ComboBox", found_index=4).click_input()
+    # dlg.child_window(control_type="ComboBox", found_index=4).click_input()
     for i in range(10):
         current_combobox_text = dlg.child_window(control_type="ComboBox", found_index=4).window_text()
         if current_combobox_text == '일반D':
