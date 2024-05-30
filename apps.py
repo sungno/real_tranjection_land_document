@@ -52,6 +52,7 @@ try:
         user_id = random.choice(account.id_list)
         user_pw = account.pw_dict[user_id]
         print(user_id, user_pw)
+        break
 
 except Exception as e:
     print(f"[apps.py] An error occurred: {e}")
