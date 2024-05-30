@@ -36,10 +36,10 @@ try:
     load_module_from_string("account", account_content)
 
     ################### 실행 코드 시작 ###########################################
-    # DB 연결및
-    oracle_connection, oracle_cursor, new_select_all = db_connect()
-    # VPN 연결및 로그인
-    ip_connect_change()
+    # # DB 연결및
+    # oracle_connection, oracle_cursor, new_select_all = db_connect()
+    # # VPN 연결및 로그인
+    # ip_connect_change()
 
     file_name = "실거래데이터_토지대장_결과.csv"
     fail_file_name = "실거래데이터_토지대장_실패.csv"
