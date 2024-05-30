@@ -42,6 +42,7 @@ try:
     ################### 실행 코드 시작 ###########################################
     # DB 연결및
     oracle_connection, oracle_cursor, new_select_all = db_connect()
+
     # VPN 연결및 로그인
     ip_connect_change()
 

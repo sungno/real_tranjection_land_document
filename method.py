@@ -44,6 +44,7 @@ def db_connect():
     else:
         new_select_all = select_all
     print('DB 연결 완료.')
+    print(f"총 {len(new_select_all)}건")
     return oracle_connection, oracle_cursor, new_select_all
 
 
