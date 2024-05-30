@@ -1,15 +1,5 @@
+
 from moduls import *
-
-
-### IP 선택 함수
-# def ip_checked():
-#     ip_file = open("ip.txt", "r", encoding="utf-8")
-#     ip_list = ip_file.readlines()
-#     ip_list_box = []
-#     for i in ip_list:
-#         ip_list_box.append(str(i).replace('\n', ""))
-#     return random.choice(ip_list_box)
-
 
 def make_user_agent(ua, is_mobile):
     user_agent = parse(ua)
