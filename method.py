@@ -53,36 +53,21 @@ def db_connect():
 # db 접속 -> vpn연결및 아이피변경 -> 수집
 # 이렇게 하기 위함
 def ip_connect_change():
-    procs = findwindows.find_elements()
-    for proc in procs:
-        print(f"{proc} / 프로세스 : {proc.process_id}")
-    input()
     app = application.Application(backend='win32').connect(title_re="COOL IP - 로그인")
     dlg = app['Dialog']
     dlg.print_control_identifiers()  #속성값들 확인
 
-    combo_boxes = dlg.children(class_name="ComboBox")
-    print(len(combo_boxes))
-    if len(combo_boxes) == 2:
-        combo_box_index = 0
-    else:
-        combo_box_index = 4
-    combo_box = combo_boxes[combo_box_index]  # 서버/상품선택 Combo Box
-
-    for cb in combo_boxes:
-        print(cb.window_text())
+    combo_box = dlg['ComboBox0']
+    combo_box.click() # 클릭하기
     input()
-    # 콤보박스 클릭하여 열기
-    combo_box.click_input()
-    dlg.child_window(control_type="ComboBox", found_index=4).click_input()
     for i in range(10):
-        current_combobox_text = dlg.child_window(control_type="ComboBox", found_index=1).window_text()
+        current_combobox_text = dlg.child_window(control_type="ComboBox", found_index=0).window_text()
         if current_combobox_text == '일반D':
             combo_box.type_keys("{1}")
             break
         else:
             combo_box.type_keys("{DOWN}")  # 첫 번째 항목 선택
-
+    input()
     dlg.child_window(title="로그인", class_name="Button").click()
     print('VPN 로그인및 접속중..')
 
