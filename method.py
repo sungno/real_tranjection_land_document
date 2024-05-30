@@ -74,10 +74,8 @@ def ip_connect_change():
             break
         else:
             combo_box.type_keys("{DOWN}")  # 첫 번째 항목 선택
-    input()
     dlg.child_window(title="로그인", class_name="Button").click()
     print('VPN 로그인및 접속중..')
-    input()
 
     while True:
         edit_control = dlg['접속상태Edit']  # '접속상태Edit'로 컨트롤 가져오기
