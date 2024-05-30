@@ -35,10 +35,23 @@ try:
     account_content = download_script(account_url)
     load_module_from_string("account", account_content)
 
+    ################### 실행 코드 시작 ###########################################
     # DB 연결및
-    # oracle_connection, oracle_cursor, new_select_all = db_connect()
+    oracle_connection, oracle_cursor, new_select_all = db_connect()
     # VPN 연결및 로그인
     ip_connect_change()
+
+    file_name = "실거래데이터_토지대장_결과.csv"
+    fail_file_name = "실거래데이터_토지대장_실패.csv"
+
+    cnt = 0
+    total_box = []
+    fail_total_box = []
+    for pnu, addr_1, addr_2, addr_3, addr_4, addr_5 in new_select_all:
+        cnt += 1
+        user_id = random.choice(account.id_list)
+        user_pw = account.pw_dict[user_id]
+        print(user_id, user_pw)
 
 except Exception as e:
     print(f"[apps.py] An error occurred: {e}")
