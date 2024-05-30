@@ -57,7 +57,7 @@ def ip_connect_change():
     for proc in procs:
         print(f"{proc} / 프로세스 : {proc.process_id}")
     input()
-    app = application.Application(backend='win32').connect(title_re="COOL IP - *")
+    app = application.Application(backend='win32').connect(title_re="COOL IP - 로그인")
     dlg = app['Dialog']
     dlg.print_control_identifiers()  #속성값들 확인
 
