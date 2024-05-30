@@ -65,6 +65,9 @@ def ip_connect_change():
         combo_box_index = 4
     combo_box = combo_boxes[combo_box_index]  # 서버/상품선택 Combo Box
 
+    for cb in combo_boxes:
+        print(cb.window_text())
+    input()
     # 콤보박스 클릭하여 열기
     combo_box.click_input()
     dlg.child_window(control_type="ComboBox", found_index=4).click_input()
