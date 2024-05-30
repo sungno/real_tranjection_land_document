@@ -69,7 +69,7 @@ def ip_connect_change():
     combo_box.click_input()
     dlg.child_window(control_type="ComboBox", found_index=4).click_input()
     for i in range(10):
-        current_combobox_text = dlg.child_window(control_type="ComboBox", found_index=combo_box_index).window_text()
+        current_combobox_text = dlg.child_window(control_type="ComboBox", found_index=1).window_text()
         if current_combobox_text == '일반D':
             combo_box.type_keys("{1}")
             break
