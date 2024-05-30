@@ -60,7 +60,7 @@ def ip_connect_change():
     combo_boxes = dlg.children(class_name="ComboBox")
     print(len(combo_boxes))
     if len(combo_boxes) == 2:
-        combo_box_index = 2
+        combo_box_index = 0
     else:
         combo_box_index = 4
     combo_box = combo_boxes[combo_box_index]  # 서버/상품선택 Combo Box
