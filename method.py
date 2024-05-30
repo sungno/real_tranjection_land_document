@@ -55,7 +55,7 @@ def db_connect():
 def ip_connect_change():
     app = application.Application(backend='win32').connect(title_re="COOL IP - *")
     dlg = app['Dialog']
-    # dlg.print_control_identifiers()  #속성값들 확인
+    dlg.print_control_identifiers()  #속성값들 확인
 
     combo_boxes = dlg.children(class_name="ComboBox")
     combo_box = combo_boxes[4]  # 서버/상품선택 Combo Box
