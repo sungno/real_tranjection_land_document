@@ -59,7 +59,7 @@ def ip_connect_change():
 
     combo_boxes = dlg.children(class_name="ComboBox")
     print(len(combo_boxes))
-    combo_box = combo_boxes[4]  # 서버/상품선택 Combo Box
+    combo_box = combo_boxes[0]  # 서버/상품선택 Combo Box
 
     # 콤보박스 클릭하여 열기
     combo_box.click_input()
