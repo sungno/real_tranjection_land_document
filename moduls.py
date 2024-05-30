@@ -1,9 +1,10 @@
 import cx_Oracle
 import sys, types, os
-import json, time, random
+import json, time, random, re
 
 import requests
 import pandas as pd
+from bs4 import BeautifulSoup
 
 from pywinauto import findwindows
 from pywinauto import application
@@ -20,3 +21,4 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.alert import Alert

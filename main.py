@@ -1,6 +1,3 @@
-# import sys
-# import types
-# import json
 from moduls import *
 from method import *
 
@@ -28,8 +25,10 @@ def download_and_load_all_scripts(scripts_json_url):
     scripts_data = json.loads(scripts_content)
     for script_url in scripts_data["scripts"]:
         script_name = script_url.split('/')[-1].split('.')[0]
+        print(script_name)
         script_content = download_script(script_url)
         load_module_from_string(script_name, script_content)
+        print('완료')
 
 
 if __name__ == "__main__":
@@ -38,7 +37,7 @@ if __name__ == "__main__":
         scripts_json_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/scripts.json"
 
         # 모든 스크립트 다운로드 및 로드
-        json_file = download_and_load_all_scripts(scripts_json_url)
+        download_and_load_all_scripts(scripts_json_url)
 
         # 메인 스크립트 실행
         main_script_content = download_script("https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/apps.py")
