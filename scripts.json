@@ -2,6 +2,6 @@
     "scripts": [
         "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/moduls.py",
         "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/method.py",
-        "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/apps.py"
+//        "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/apps.py"
     ]
 }
