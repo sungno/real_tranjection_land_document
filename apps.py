@@ -76,6 +76,36 @@ try:
 
         print(f"{pnu} // {do} {si} {dong} {ri} {san} {jibun} {boobun}")
 
+
+
+
+
+
+
+
+        fail_df = pd.DataFrame({
+            'pnu': [pnu],
+            '시도': [do],
+            '시군구': [si],
+            '읍면동': [dong],
+            '리': [ri],
+            '구분': [san],
+            '번': [jibun],
+            '지': [boobun],
+
+        })
+        # 파일이 존재하는지 확인
+        file_exists = os.path.isfile(fail_file_name)
+        # 파일이 존재하지 않으면 헤더 포함하여 저장, 존재하면 헤더 없이 추가
+        fail_df.to_csv(fail_file_name, mode='a', header=not file_exists, index=False)
+
+
+
+
+
+
+
+
         try:
             jibun_1 = float(jibun)
         except Exception as e:
