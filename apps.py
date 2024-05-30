@@ -1,4 +1,5 @@
 from method import *
+from moduls import *
 import sys
 import types
 
