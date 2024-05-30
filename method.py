@@ -53,15 +53,15 @@ def db_connect():
 # db 접속 -> vpn연결및 아이피변경 -> 수집
 # 이렇게 하기 위함
 def ip_connect_change():
-    app = application.Application(backend='win32').connect(title_re="COOL IP - 로그인")
+    app = application.Application(backend='win32').connect(title_re="COOL IP - *")
     dlg = app['Dialog']
-    dlg.print_control_identifiers()  #속성값들 확인
+    dlg.print_control_identifiers()  # 속성값들 확인
 
     combo_box = dlg['ComboBox0']
-    combo_box.click() # 클릭하기
-    input()
+    combo_box.click()  # 클릭하기
     for i in range(10):
-        current_combobox_text = dlg.child_window(control_type="ComboBox", found_index=0).window_text()
+        current_combobox_text = dlg['ComboBox0'].window_text()
+        print(current_combobox_text)
         if current_combobox_text == '일반D':
             combo_box.type_keys("{1}")
             break
@@ -70,6 +70,7 @@ def ip_connect_change():
     input()
     dlg.child_window(title="로그인", class_name="Button").click()
     print('VPN 로그인및 접속중..')
+    input()
 
     while True:
         edit_control = dlg['접속상태Edit']  # '접속상태Edit'로 컨트롤 가져오기
