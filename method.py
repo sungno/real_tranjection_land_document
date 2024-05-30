@@ -53,6 +53,10 @@ def db_connect():
 # db 접속 -> vpn연결및 아이피변경 -> 수집
 # 이렇게 하기 위함
 def ip_connect_change():
+    procs = findwindows.find_elements()
+    for proc in procs:
+        print(f"{proc} / 프로세스 : {proc.process_id}")
+    input()
     app = application.Application(backend='win32').connect(title_re="COOL IP - *")
     dlg = app['Dialog']
     dlg.print_control_identifiers()  #속성값들 확인
