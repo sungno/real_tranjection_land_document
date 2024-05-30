@@ -1,7 +1,9 @@
 from moduls import *
 from method import *
 
+
 import account
+from mdriver import *
 
 # import sys
 # import types
@@ -19,22 +21,44 @@ def load_module_from_string(module_name, module_content):
     sys.modules[module_name] = module
     return module
 
+def download_and_load_all_scripts(scripts_json_url):
+    scripts_content = download_script(scripts_json_url)
+    scripts_data = json.loads(scripts_content)
+    for script_url in scripts_data["scripts"]:
+        script_name = script_url.split('/')[-1].split('.')[0]
+        print(script_name)
+        script_content = download_script(script_url)
+        load_module_from_string(script_name, script_content)
+
 try:
-    ### 필요한 모듈 다운로드 및 로드
-    # method.py 다운로드 및 로드
-    method_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/method.py"
-    method_content = download_script(method_url)
-    load_module_from_string("method", method_content)
+    # ### 필요한 모듈 다운로드 및 로드
+    # # method.py 다운로드 및 로드
+    # method_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/method.py"
+    # method_content = download_script(method_url)
+    # load_module_from_string("method", method_content)
+    #
+    # # moduls.py 다운로드 및 로드
+    # moduls_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/moduls.py"
+    # moduls_content = download_script(moduls_url)
+    # load_module_from_string("moduls", moduls_content)
+    #
+    # # account.py 다운로드 및 로드
+    # account_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/account.py"
+    # account_content = download_script(account_url)
+    # load_module_from_string("account", account_content)
+    #
+    # # mdriver.py 다운로드 및 로드
+    # mdriver_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/mdriver.py"
+    # mdriver_content = download_script(mdriver_url)
+    # load_module_from_string("mdriver", mdriver_content)
 
-    # moduls.py 다운로드 및 로드
-    moduls_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/moduls.py"
-    moduls_content = download_script(moduls_url)
-    load_module_from_string("moduls", moduls_content)
+    # scripts.json 파일의 URL
+    scripts_json_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/scripts.json"
 
-    # account.py 다운로드 및 로드
-    account_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/account.py"
-    account_content = download_script(account_url)
-    load_module_from_string("account", account_content)
+    # 모든 스크립트 다운로드 및 로드
+    download_and_load_all_scripts(scripts_json_url)
+
+
 
     ################### 실행 코드 시작 ###########################################
     # DB 연결및
@@ -77,36 +101,6 @@ try:
 
         print(f"{pnu} // {do} {si} {dong} {ri} {san} {jibun} {boobun}")
 
-
-
-
-
-
-
-
-        fail_df = pd.DataFrame({
-            'pnu': [pnu],
-            '시도': [do],
-            '시군구': [si],
-            '읍면동': [dong],
-            '리': [ri],
-            '구분': [san],
-            '번': [jibun],
-            '지': [boobun],
-
-        })
-        # 파일이 존재하는지 확인
-        file_exists = os.path.isfile(fail_file_name)
-        # 파일이 존재하지 않으면 헤더 포함하여 저장, 존재하면 헤더 없이 추가
-        fail_df.to_csv(fail_file_name, mode='a', header=not file_exists, index=False)
-
-
-
-
-
-
-
-
         try:
             jibun_1 = float(jibun)
         except Exception as e:
@@ -140,6 +134,9 @@ try:
             tms = time.localtime()
             all_date = time.strftime('%Y-%m-%d', tms)
             all_date
+
+            driver, wait = make_driver()
+            # driver.get("https://www.naver.com")
 
         except Exception as e:
             print(f"[run code] An error occurred: {e}")
