@@ -1,5 +1,6 @@
-from method import *
 from moduls import *
+from method import *
+
 import account
 
 # import sys
