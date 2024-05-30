@@ -73,8 +73,7 @@ try:
     cnt = 0
     total_box = []
     fail_total_box = []
-    for pnu, addr_1, addr_2, addr_3, addr_4, addr_5 in new_select_all:
-        print(addr_1, addr_2, addr_3, addr_4, addr_5)
+    for pnu, purpose, addr_1, addr_2, addr_3, addr_4, addr_5 in new_select_all:
         cnt += 1
         user_id = random.choice(account.id_list)
         user_pw = account.pw_dict[user_id]
@@ -88,7 +87,7 @@ try:
         else:
             ri = addr_4
 
-        if '산' in addr_5:
+        if purpose == '임야':
             san = '산'
             addr_5 = addr_5.replace('산', "")
         else:
@@ -102,7 +101,7 @@ try:
             boobun = ""
 
         print(f"{pnu} // {do} {si} {dong} {ri} {san} {jibun} {boobun}")
-
+        input()
         try:
             jibun_1 = float(jibun)
         except Exception as e:

@@ -21,7 +21,7 @@ def db_connect():
 
     # kr_land_deal 테이블에서 데이터를 조회하는 쿼리
     select_kr_land_deal_query = """
-        SELECT pnu, addr_1, addr_2, addr_3, addr_4, addr_5 
+        SELECT pnu, purpose, addr_1, addr_2, addr_3, addr_4, addr_5 
         FROM kr_land_deal 
         WHERE trunc(update_date) >= TRUNC(SYSDATE-7)
         ORDER BY update_date
