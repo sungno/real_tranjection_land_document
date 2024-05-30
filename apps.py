@@ -136,7 +136,7 @@ try:
             all_date
 
             driver, wait = make_driver()
-            # driver.get("https://www.naver.com")
+            driver.get("https://www.naver.com")
 
         except Exception as e:
             print(f"[run code] An error occurred: {e}")
