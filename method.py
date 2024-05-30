@@ -58,6 +58,7 @@ def ip_connect_change():
     dlg.print_control_identifiers()  #속성값들 확인
 
     combo_boxes = dlg.children(class_name="ComboBox")
+    len(combo_boxes)
     combo_box = combo_boxes[4]  # 서버/상품선택 Combo Box
 
     # 콤보박스 클릭하여 열기
