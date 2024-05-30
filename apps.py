@@ -1,7 +1,7 @@
 from method import *
 from moduls import *
-import sys
-import types
+# import sys
+# import types
 
 
 def download_script(url):
@@ -17,18 +17,17 @@ def load_module_from_string(module_name, module_content):
     return module
 
 try:
-    # 필요한 모듈 다운로드 및 로드
+    ### 필요한 모듈 다운로드 및 로드
+    # method.py 다운로드 및 로드
     method_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/method.py"
     method_content = download_script(method_url)
-    a = load_module_from_string("method", method_content)
-    print(a)
-    # account.py 다운로드 및 로드
+    load_module_from_string("method", method_content)
+
+    # moduls.py 다운로드 및 로드
     moduls_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/moduls.py"
     moduls_content = download_script(moduls_url)
-    b = load_module_from_string("moduls", moduls_content)
-    print(b)
+    load_module_from_string("moduls", moduls_content)
 
-    input()
     # DB 연결및
     oracle_connection, oracle_cursor, new_select_all = db_connect()
     print(new_select_all)
