@@ -1,7 +1,8 @@
-import requests
-import sys
-import types
-import json
+# import sys
+# import types
+# import json
+from moduls import *
+from method import *
 
 
 def download_script(url):
@@ -35,8 +36,9 @@ if __name__ == "__main__":
     try:
         # scripts.json 파일의 URL
         scripts_json_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/scripts.json"
+
         # 모든 스크립트 다운로드 및 로드
-        download_and_load_all_scripts(scripts_json_url)
+        json_file = download_and_load_all_scripts(scripts_json_url)
 
         # 메인 스크립트 실행
         main_script_content = download_script("https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/apps.py")
