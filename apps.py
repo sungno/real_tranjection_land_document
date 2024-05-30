@@ -73,7 +73,7 @@ try:
     cnt = 0
     total_box = []
     fail_total_box = []
-    for pnu, purpose, addr_1, addr_2, addr_3, addr_4, addr_5 in new_select_all:
+    for pnu, bunji, addr_1, addr_2, addr_3, addr_4, addr_5 in new_select_all:
         cnt += 1
         user_id = random.choice(account.id_list)
         user_pw = account.pw_dict[user_id]
@@ -87,7 +87,7 @@ try:
         else:
             ri = addr_4
 
-        if purpose == '임야':
+        if '산' in bunji:
             san = '산'
             addr_5 = addr_5.replace('산', "")
         else:
