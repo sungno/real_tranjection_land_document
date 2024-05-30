@@ -53,7 +53,14 @@ def db_connect():
 # db 접속 -> vpn연결및 아이피변경 -> 수집
 # 이렇게 하기 위함
 def ip_connect_change():
-    app = application.Application(backend='win32').connect(title_re="COOL IP - 로그인")
+    procs = findwindows.find_elements()
+    for proc in procs:
+        target_title = f"""{str(proc).split("'")[1]}"""
+        if 'COOL IP' in target_title:
+            print(target_title)
+            break
+
+    app = application.Application(backend='win32').connect(title_re=target_title)
     dlg = app['Dialog']
     dlg.print_control_identifiers()  # 속성값들 확인
 
