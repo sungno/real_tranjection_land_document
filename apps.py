@@ -74,6 +74,7 @@ try:
     total_box = []
     fail_total_box = []
     for pnu, addr_1, addr_2, addr_3, addr_4, addr_5 in new_select_all:
+        print(addr_1, addr_2, addr_3, addr_4, addr_5)
         cnt += 1
         user_id = random.choice(account.id_list)
         user_pw = account.pw_dict[user_id]
