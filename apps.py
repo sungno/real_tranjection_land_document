@@ -36,7 +36,7 @@ try:
     load_module_from_string("account", account_content)
 
     # DB 연결및
-    oracle_connection, oracle_cursor, new_select_all = db_connect()
+    # oracle_connection, oracle_cursor, new_select_all = db_connect()
     # VPN 연결및 로그인
     ip_connect_change()
 
