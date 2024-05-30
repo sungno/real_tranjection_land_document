@@ -59,13 +59,17 @@ def ip_connect_change():
 
     combo_boxes = dlg.children(class_name="ComboBox")
     print(len(combo_boxes))
-    combo_box = combo_boxes[0]  # 서버/상품선택 Combo Box
+    if len(combo_boxes) == 2:
+        combo_box_index = 2
+    else:
+        combo_box_index = 4
+    combo_box = combo_boxes[combo_box_index]  # 서버/상품선택 Combo Box
 
     # 콤보박스 클릭하여 열기
     combo_box.click_input()
     # dlg.child_window(control_type="ComboBox", found_index=4).click_input()
     for i in range(10):
-        current_combobox_text = dlg.child_window(control_type="ComboBox", found_index=4).window_text()
+        current_combobox_text = dlg.child_window(control_type="ComboBox", found_index=combo_box_index).window_text()
         if current_combobox_text == '일반D':
             combo_box.type_keys("{1}")
             break
