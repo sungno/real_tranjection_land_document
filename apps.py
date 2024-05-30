@@ -52,6 +52,72 @@ try:
         user_id = random.choice(account.id_list)
         user_pw = account.pw_dict[user_id]
         print(user_id, user_pw)
+
+        do = addr_1
+        si = addr_2
+        dong = addr_3
+        if addr_4 is None:
+            ri = ""
+        else:
+            ri = addr_4
+
+        if '산' in addr_5:
+            san = '산'
+            addr_5 = addr_5.replace('산', "")
+        else:
+            san = '일반'
+
+        if '-' in addr_5:
+            jibun = addr_5.split("-")[0]
+            boobun = addr_5.split("-")[1]
+        else:
+            jibun = addr_5
+            boobun = ""
+
+        print(f"{pnu} // {do} {si} {dong} {ri} {san} {jibun} {boobun}")
+
+        try:
+            jibun_1 = float(jibun)
+        except Exception as e:
+            print(e)
+            print(f"INPUT 파일에서 지번 입력값 확인요망")
+            print(e)
+            fail_df = pd.DataFrame({
+                'pnu': [pnu],
+                '시도': [do],
+                '시군구': [si],
+                '읍면동': [dong],
+                '리': [ri],
+                '구분': [san],
+                '번': [jibun],
+                '지': [boobun],
+
+            })
+            # 파일이 존재하는지 확인
+            file_exists = os.path.isfile(fail_file_name)
+            # 파일이 존재하지 않으면 헤더 포함하여 저장, 존재하면 헤더 없이 추가
+            fail_df.to_csv(fail_file_name, mode='a', header=not file_exists, index=False)
+            continue
+
+        try:
+            if jibun != "":
+                jibun = str(int(jibun))
+            if boobun != "":
+                boobun = str(int(boobun))
+
+            ### 날짜
+            tms = time.localtime()
+            all_date = time.strftime('%Y-%m-%d', tms)
+            all_date
+
+        except Exception as e:
+            print(f"[run code] An error occurred: {e}")
+
+
+
+
+
+
         break
 
 except Exception as e:
