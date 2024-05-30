@@ -32,30 +32,8 @@ def download_and_load_all_scripts(scripts_json_url):
         load_module_from_string(script_name, script_content)
 
 try:
-    # ### 필요한 모듈 다운로드 및 로드
-    # # method.py 다운로드 및 로드
-    # method_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/method.py"
-    # method_content = download_script(method_url)
-    # load_module_from_string("method", method_content)
-    #
-    # # moduls.py 다운로드 및 로드
-    # moduls_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/moduls.py"
-    # moduls_content = download_script(moduls_url)
-    # load_module_from_string("moduls", moduls_content)
-    #
-    # # account.py 다운로드 및 로드
-    # account_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/account.py"
-    # account_content = download_script(account_url)
-    # load_module_from_string("account", account_content)
-    #
-    # # mdriver.py 다운로드 및 로드
-    # mdriver_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/mdriver.py"
-    # mdriver_content = download_script(mdriver_url)
-    # load_module_from_string("mdriver", mdriver_content)
-
     # scripts.json 파일의 URL
     scripts_json_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/scripts.json"
-
     # 모든 스크립트 다운로드 및 로드
     download_and_load_all_scripts(scripts_json_url)
 
@@ -64,8 +42,8 @@ try:
     ################### 실행 코드 시작 ###########################################
     # DB 연결및
     oracle_connection, oracle_cursor, new_select_all = db_connect()
-    # # VPN 연결및 로그인
-    # ip_connect_change()
+    # VPN 연결및 로그인
+    ip_connect_change()
 
     file_name = "실거래데이터_토지대장_결과.csv"
     fail_file_name = "실거래데이터_토지대장_실패.csv"
@@ -101,7 +79,6 @@ try:
             boobun = ""
 
         print(f"{pnu} // {do} {si} {dong} {ri} {san} {jibun} {boobun}")
-        input()
         try:
             jibun_1 = float(jibun)
         except Exception as e:
@@ -676,7 +653,7 @@ try:
             ip_change_click()
             print("● 아이피 변경")
 
-        break
+        # break
 
     print('수집 완료')
     # 커서와 연결 닫기
