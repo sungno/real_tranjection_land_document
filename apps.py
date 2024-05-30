@@ -1,5 +1,7 @@
 from method import *
 from moduls import *
+import account
+
 # import sys
 # import types
 
@@ -28,8 +30,15 @@ try:
     moduls_content = download_script(moduls_url)
     load_module_from_string("moduls", moduls_content)
 
+    # account.py 다운로드 및 로드
+    account_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/account.py"
+    account_content = download_script(account_url)
+    load_module_from_string("account", account_content)
+
     # DB 연결및
     oracle_connection, oracle_cursor, new_select_all = db_connect()
-    print(new_select_all)
+    # VPN 연결및 로그인
+    ip_connect_change()
+
 except Exception as e:
     print(f"[apps.py] An error occurred: {e}")
