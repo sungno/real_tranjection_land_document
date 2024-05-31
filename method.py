@@ -24,7 +24,7 @@ def db_connect():
         SELECT pnu, bunji, addr_1, addr_2, addr_3, addr_4, addr_5
         FROM KR_LAND_DEAL
         WHERE TRUNC(UPDATE_DATE) >= TRUNC(SYSDATE-7)
-        AND LAND_AREA_M2 >= 1650;
+        AND LAND_AREA_M2 >= 1650
     """
     oracle_cursor.execute(select_kr_land_deal_query)
     select_all = oracle_cursor.fetchall()
