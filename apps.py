@@ -641,7 +641,6 @@ try:
         try:
             driver.quit()
             print("Driver Quit")
-            input()
         except Exception as e:
             print(e)
 
