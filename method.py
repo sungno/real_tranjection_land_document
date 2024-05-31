@@ -57,12 +57,13 @@ def ip_connect_change():
     procs = findwindows.find_elements()
     for proc in procs:
         target_title = f"""{str(proc).split("'")[1]}"""
+        print(target_title)
         if 'COOL IP' in target_title:
             break
 
     app = application.Application(backend='win32').connect(title_re=target_title)
     dlg = app['Dialog']
-    # dlg.print_control_identifiers()  # 속성값들 확인
+    dlg.print_control_identifiers()  # 속성값들 확인
 
     combo_box = dlg['ComboBox0']
     combo_box.click()  # 클릭하기
