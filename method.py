@@ -17,7 +17,7 @@ def db_connect():
     if first_pnu:
         last_pnu_check_pnu = first_pnu[0]
     else:
-        last_pnu_check_pnu = None
+        last_pnu_check_pnu = None # 3171026228201730016
 
     # kr_land_deal 테이블에서 데이터를 조회하는 쿼리
     select_kr_land_deal_query = """
