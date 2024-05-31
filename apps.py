@@ -640,6 +640,7 @@ try:
 
         try:
             driver.quit()
+            print("Driver Quit")
         except Exception as e:
             print(e)
 
