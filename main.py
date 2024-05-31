@@ -25,13 +25,12 @@ def download_and_load_all_scripts(scripts_json_url):
     scripts_data = json.loads(scripts_content)
     for script_url in scripts_data["scripts"]:
         script_name = script_url.split('/')[-1].split('.')[0]
-        print(script_name)
         script_content = download_script(script_url)
         load_module_from_string(script_name, script_content)
-        print('완료')
 
 
 if __name__ == "__main__":
+    print("Ver 2.0")
     try:
         # scripts.json 파일의 URL
         scripts_json_url = "https://raw.githubusercontent.com/sungno/real_tranjection_land_document/main/scripts.json"
