@@ -32,6 +32,7 @@ def db_connect():
     # 새로운 데이터를 저장할 리스트 초기화
     new_select_all = []
     print(last_pnu_check_pnu)
+    print()
     # 조회된 데이터 중 last_pnu_check_pnu 값 이후의 데이터만 출력하고 리스트에 추가
     if last_pnu_check_pnu is not None:
         start_printing = False
