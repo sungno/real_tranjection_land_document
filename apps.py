@@ -655,7 +655,7 @@ try:
         print(f"   ■ 성공개수 : {success_cnt}")
         print(f"   ■ 실패개수 : {fail_cnt}")
         try:
-            if ip_cnt % 1 == 0:
+            if ip_cnt % 50 == 0:
                 ip_change_click()
         except:
             print('★ 아이피 변경 실패')
