@@ -49,11 +49,16 @@ try:
     file_name = "실거래데이터_토지대장_결과.csv"
     fail_file_name = "실거래데이터_토지대장_실패.csv"
 
-    cnt = 0
+    ip_cnt = 0
+    success_cnt = 0
+    fail_cnt = 0
+
     total_box = []
     fail_total_box = []
+
     for pnu, bunji, addr_1, addr_2, addr_3, addr_4, addr_5 in new_select_all:
-        cnt += 1
+        start_time = time.time()  # 시작 시간 기록
+        ip_cnt += 1
         user_id = random.choice(account.id_list)
         user_pw = account.pw_dict[user_id]
         print(user_id, user_pw)
@@ -79,13 +84,13 @@ try:
             jibun = addr_5
             boobun = ""
 
-        print(f"{pnu} // {do} {si} {dong} {ri} {san} {jibun} {boobun}")
+        current_row = f"[{ip_cnt}] // {do, si, dong, ri, san, jibun, boobun}"
+        print(f"■ {current_row} 수집 시도....")
         try:
             jibun_1 = float(jibun)
         except Exception as e:
-            print(e)
-            print(f"INPUT 파일에서 지번 입력값 확인요망")
-            print(e)
+            print(f"★ {current_row} 수집 실패")
+            print(f"★ 토지대장_VM.csv 파일에서 지번 입력값 확인요망")
             fail_df = pd.DataFrame({
                 'pnu': [pnu],
                 '시도': [do],
@@ -101,6 +106,8 @@ try:
             file_exists = os.path.isfile(fail_file_name)
             # 파일이 존재하지 않으면 헤더 포함하여 저장, 존재하면 헤더 없이 추가
             fail_df.to_csv(fail_file_name, mode='a', header=not file_exists, index=False)
+            total_mail = f"{do} {si} {dong} {ri} {san} {jibun} {boobun}"
+            fail_cnt += 1
             continue
 
         try:
@@ -158,6 +165,8 @@ try:
                 print("펼쳐보기 EXCEPTION!")
                 time.sleep(5)
                 driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
+                driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.HOME)
+                time.sleep(1)
                 wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow")))
                 time.sleep(10)
                 wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow"))).click()
@@ -192,21 +201,20 @@ try:
             ## 선택해야할 총주소 만들기
             ## 시가 없는경우 리,동이 없는경우등에 맞춰 조건문으로 거르기
             if ri == "":
-                print('ri가 없으면')
+                # print('ri가 없으면')
                 re_dong = re.sub('[^가-힣]', '', dong)
                 total_mail = f"{do} {si} {dong}({re_dong})"
             elif si == "":
-                print('si가 없으면')
+                # print('si가 없으면')
                 re_dong = re.sub('[^가-힣]', '', dong)
                 total_mail = f"{do} {dong}({ri})"
             else:
-                print('정상적이면')
+                # print('정상적이면')
                 total_mail = f"{do} {si} {dong}({ri})"
 
             ### 주소선택창에서 해당주소가 있을때까지 비교후 클릭
             print('주소선택창에서 해당주소가 있을때까지 비교후 클릭')
             for i in aa:
-                print(i.text)
                 if ri == '':
                     if f'{si}' in i.text and f'({dong})' in i.text:
                         i.send_keys(Keys.ENTER)
@@ -267,11 +275,11 @@ try:
                 print(f"total_jibun -- {total_jibun}")
                 print(f"document_jibun -- {document_jibun}")
                 if document_jibun == total_jibun:
-                    print("지번 일치")
+                    print("   지번 일치")
                     break
 
                 else:
-                    print("지번 불일치")
+                    print("   지번 불일치")
                     driver.close()
                     driver.switch_to.window(driver.window_handles[-1])
                     driver.refresh()
@@ -293,7 +301,7 @@ try:
             #################### 수집 시작 ########################################
             #################### 수집 시작 ########################################
             #################### 수집 시작 ########################################
-            print('수집시작')
+            print('토지대장 데이터 수집시작...')
             ### 공유지연명부 여부
             if '연명부' in driver.find_element(By.TAG_NAME, "body").text:
                 category = '공유지연명부'
@@ -399,7 +407,6 @@ try:
             for nd2, st1 in zip(line_2nd_box, line_1st_box):
                 ### 소유권변동원인
                 if nd2.find_all('td')[0].text != "":
-                    print(nd2.find_all('td')[0].text[4:])
                     owrner_reason_box.append(nd2.find_all('td')[0].text[4:])
                 elif '여백' in st1.find_all('td')[4].text:
                     break
@@ -408,7 +415,6 @@ try:
 
                 ### 소유자명
                 if nd2.find_all('td')[1].text != "":
-                    print(nd2.find_all('td')[1].text.split(")")[-1])
                     owrner_name_box.append(nd2.find_all('td')[1].text)
                 elif '여백' in st1.find_all('td')[4].text:
                     break
@@ -417,7 +423,6 @@ try:
 
                 ### 소유자코드(주민,법인)
                 if nd2.find_all('td')[2].text != "":
-                    print(nd2.find_all('td')[2].text.split(")")[-1])
                     owrner_code_box.append(nd2.find_all('td')[2].text)
                 elif '여백' in st1.find_all('td')[4].text:
                     break
@@ -448,7 +453,6 @@ try:
 
                         ppp = p.find_all('table')
                         share = ppp[-1].find("tbody").find_all('tr')[7:]
-                        len(share)
 
                         ### 첫째줄의 정보와, 둘째쭐의 정보를 나눠서 각각 리스트 담기기
                         share_line_1st_box = []
@@ -533,7 +537,6 @@ try:
                                 sh_name_box.append(sh2.find_all('td')[1].text)
 
                         ### 공유지 연명부가 있다면 양식에 맞게 저장하기위해 토지대장의 항목과 공유지연명부의 항목을 합치기
-                        print("================== 더하기 시작 ==================")
                         total_date_box = owrner_date_box + sh_change_date_box
                         total_change_reason_box = owrner_reason_box + sh_change_reason_box
                         total_mail_box = owrner_mail_box + sh_mail_box
@@ -554,25 +557,25 @@ try:
                 total_share_box = share_box
                 total_category_box = category_box
 
-            print("================== owrner part ==================")
-            print(f"날짜 - {owrner_date_box}")
-            print(f"변동원인 - {owrner_reason_box}")
-            print(f"주소 - {owrner_mail_box}")
-            print(f"이름 - {owrner_name_box}")
-            print(f"코드 - {owrner_code_box}")
-            print(f"순번 - {cnt_box}")
-            print(f"공유지분 - {share_box}")
-            print(f"구분 - {category_box}")
-
-            print("================== total part ==================")
-            print(f"날짜 - {total_date_box}")
-            print(f"변동원인 - {total_change_reason_box}")
-            print(f"주소 - {total_mail_box}")
-            print(f"이름 - {total_name_box}")
-            print(f"코드 - {total_code_box}")
-            print(f"순번 - {total_cnt_box}")
-            print(f"공유지분 - {total_share_box}")
-            print(f"구분 - {total_category_box}")
+            # print("================== owrner part ==================")
+            # print(f"날짜 - {owrner_date_box}")
+            # print(f"변동원인 - {owrner_reason_box}")
+            # print(f"주소 - {owrner_mail_box}")
+            # print(f"이름 - {owrner_name_box}")
+            # print(f"코드 - {owrner_code_box}")
+            # print(f"순번 - {cnt_box}")
+            # print(f"공유지분 - {share_box}")
+            # print(f"구분 - {category_box}")
+            #
+            # print("================== total part ==================")
+            # print(f"날짜 - {total_date_box}")
+            # print(f"변동원인 - {total_change_reason_box}")
+            # print(f"주소 - {total_mail_box}")
+            # print(f"이름 - {total_name_box}")
+            # print(f"코드 - {total_code_box}")
+            # print(f"순번 - {total_cnt_box}")
+            # print(f"공유지분 - {total_share_box}")
+            # print(f"구분 - {total_category_box}")
 
             for t1, t2, t3, t4, t5, t6, t7, t8 in zip(total_date_box, total_change_reason_box, total_mail_box,
                                                       total_name_box, total_code_box, total_cnt_box, total_share_box,
@@ -606,7 +609,10 @@ try:
                 # 파일이 존재하지 않으면 헤더 포함하여 저장, 존재하면 헤더 없이 추가
                 df.to_csv(file_name, mode='a', header=not file_exists, index=False, encoding='ansi')
 
-            print(f"■[{cnt}] // {total_mail} {san} {total_jibun} 완료")
+            print(f"■ {current_row} 수집 성공")
+            minutes, seconds = get_lab_time(start_time)
+            print(f"■ 소요시간 : {minutes}분 {seconds}초")
+            success_cnt += 1
 
         except Exception as e:
             print(e)
@@ -630,6 +636,8 @@ try:
             file_exists = os.path.isfile(fail_file_name)
             # 파일이 존재하지 않으면 헤더 포함하여 저장, 존재하면 헤더 없이 추가
             fail_df.to_csv(fail_file_name, mode='a', header=not file_exists, index=False)
+            print(f"★ {current_row} 실패")
+            fail_cnt += 1
 
             ### alert 경고창이 나오면 닫아주고 안나오면 pass
             try:
@@ -637,27 +645,23 @@ try:
                 da.accept()
             except:
                 pass
-
-        try:
-            driver.quit()
-            print("Driver Quit")
-        except Exception as e:
-            print(e)
-
         oracle_cursor.execute("delete from last_pnu_check")
         oracle_connection.commit()
-
         pnu_data = {'pnu': pnu}
         oracle_cursor.execute("""insert into last_pnu_check (pnu) values (:pnu)""", pnu_data)
         oracle_connection.commit()
 
-        if cnt % 10 == 0:
-            ip_change_click()
-            print("● 아이피 변경")
+        driver_close(driver)
+        print(f"   ■ 성공개수 : {success_cnt}")
+        print(f"   ■ 실패개수 : {fail_cnt}")
+        try:
+            if ip_cnt % 1 == 0:
+                ip_change_click()
+        except:
+            print('★ 아이피 변경 실패')
+        print()
+        print('■■■■■■ 전체 수집 완료 ■■■■■■')
 
-        # break
-
-    print('수집 완료')
     # 커서와 연결 닫기
     oracle_cursor.close()
     oracle_connection.close()

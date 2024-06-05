@@ -132,3 +132,25 @@ def ip_change_click():
 def remove_tabs_from_dataframe(df):
     # 데이터프레임 내의 모든 문자열 데이터에서 탭 공백 제거
     return df.applymap(lambda x: x.replace('\t', '') if isinstance(x, str) else x)
+
+
+# 크롬창 닫기
+def driver_close(driver):
+    # 현재 열려 있는 모든 창의 핸들을 가져옵니다.
+    window_handles = driver.window_handles
+    # 각 창을 하나씩 닫습니다.
+    for handle in window_handles:
+        driver.switch_to.window(handle)
+        driver.close()
+    driver.quit()
+
+
+# 소요시간 계산산
+def get_lab_time(start_time):
+    end_time = time.time()  # 종료 시간 기록
+    # 총 소요 시간 계산
+    total_time = end_time - start_time
+    # 분과 초로 변환
+    minutes = int(total_time // 60)
+    seconds = int(total_time % 60)
+    return minutes, seconds
