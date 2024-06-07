@@ -21,10 +21,13 @@ def db_connect():
 
     # kr_land_deal 테이블에서 데이터를 조회하는 쿼리
     select_kr_land_deal_query = """
-        SELECT pnu, bunji, addr_1, addr_2, addr_3, addr_4, addr_5
-        FROM KR_LAND_DEAL
-        WHERE TRUNC(UPDATE_DATE) >= TRUNC(SYSDATE-7)
-        AND LAND_AREA_M2 >= 1650
+        select *
+        from kr_land_deal
+        where trunc(update_date) >= trunc(sysdate-7)
+        and ( 
+                ( regexp_like(purpose,'공장|창고') and land_area_m2 >= 650 ) or
+                ( not regexp_like(purpose,'공장|창고') and land_area_m2 >= 1650 )
+            )
     """
     oracle_cursor.execute(select_kr_land_deal_query)
     select_all = oracle_cursor.fetchall()
