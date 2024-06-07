@@ -114,6 +114,11 @@ def gov_login(driver, wait, user_id, user_pw):
             wait.until(EC.presence_of_element_located((By.XPATH, """//a[text()='나중에 변경하기']"""))).click()
             print('나중에 변경하기 클릭')
             time.sleep(1)
+
+        # 팝업 확인후 닫기
+        if '닫기' in driver.find_element(By.TAG_NAME, 'body').text:
+            driver.find_element(By.XPATH, "//button[text()='닫기']").click()
+
         login_check = wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body'))).text
         if '로그아웃' in login_check:
             print('로그인 성공')
