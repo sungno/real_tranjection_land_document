@@ -116,8 +116,8 @@ def gov_login(driver, wait, user_id, user_pw):
             time.sleep(1)
 
         # 팝업 확인후 닫기
-        if '닫기' in driver.find_element(By.TAG_NAME, 'body').text:
-            driver.find_element(By.XPATH, "//button[text()='닫기']").click()
+        if '닫기' in wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body'))).text:
+            wait.until(EC.presence_of_element_located((By.XPATH, "//button[text()='닫기']"))).click()
 
         login_check = wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body'))).text
         if '로그아웃' in login_check:
