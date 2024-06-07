@@ -21,7 +21,7 @@ def db_connect():
 
     # kr_land_deal 테이블에서 데이터를 조회하는 쿼리
     select_kr_land_deal_query = """
-        select *
+        select pnu, bunji, addr_1, addr_2, addr_3, addr_4, addr_5
         from kr_land_deal
         where trunc(update_date) >= trunc(sysdate-7)
         and ( 
