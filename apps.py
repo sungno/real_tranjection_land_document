@@ -1,10 +1,8 @@
 from moduls import *
 from method import *
-
-
 import account
-
 from mdriver import *
+from datetime import datetime
 
 # import sys
 # import types
@@ -577,6 +575,8 @@ try:
             # print(f"공유지분 - {total_share_box}")
             # print(f"구분 - {total_category_box}")
 
+            now = datetime.now()
+            current_time = now.strftime('%Y-%m-%d %H:%M:%S')
             for t1, t2, t3, t4, t5, t6, t7, t8 in zip(total_date_box, total_change_reason_box, total_mail_box,
                                                       total_name_box, total_code_box, total_cnt_box, total_share_box,
                                                       total_category_box):
@@ -599,7 +599,9 @@ try:
                     '소유자주소': [t3],
                     '소유권변동원인': [t2],
                     '소유권변동일자': [t1],
-                    '지분': [t7]
+                    '지분': [t7],
+                    '업데이트 시간': [current_time]
+
 
                 })
                 # 탭 공백을 제거한 데이터프레임
@@ -660,7 +662,7 @@ try:
         except:
             print('★ 아이피 변경 실패')
         print()
-        print('■■■■■■ 전체 수집 완료 ■■■■■■')
+    print('■■■■■■ 전체 수집 완료 ■■■■■■')
 
     # 커서와 연결 닫기
     oracle_cursor.close()
