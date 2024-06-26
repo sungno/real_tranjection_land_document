@@ -555,26 +555,6 @@ try:
                 total_share_box = share_box
                 total_category_box = category_box
 
-            # print("================== owrner part ==================")
-            # print(f"날짜 - {owrner_date_box}")
-            # print(f"변동원인 - {owrner_reason_box}")
-            # print(f"주소 - {owrner_mail_box}")
-            # print(f"이름 - {owrner_name_box}")
-            # print(f"코드 - {owrner_code_box}")
-            # print(f"순번 - {cnt_box}")
-            # print(f"공유지분 - {share_box}")
-            # print(f"구분 - {category_box}")
-            #
-            # print("================== total part ==================")
-            # print(f"날짜 - {total_date_box}")
-            # print(f"변동원인 - {total_change_reason_box}")
-            # print(f"주소 - {total_mail_box}")
-            # print(f"이름 - {total_name_box}")
-            # print(f"코드 - {total_code_box}")
-            # print(f"순번 - {total_cnt_box}")
-            # print(f"공유지분 - {total_share_box}")
-            # print(f"구분 - {total_category_box}")
-
             now = datetime.now()
             current_time = now.strftime('%Y-%m-%d %H:%M:%S')
             for t1, t2, t3, t4, t5, t6, t7, t8 in zip(total_date_box, total_change_reason_box, total_mail_box,

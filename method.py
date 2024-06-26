@@ -28,6 +28,7 @@ def db_connect():
                 ( regexp_like(purpose,'공장|창고') and land_area_m2 >= 650 ) or
                 ( not regexp_like(purpose,'공장|창고') and land_area_m2 >= 1650 )
             )
+        order by update_date
     """
     oracle_cursor.execute(select_kr_land_deal_query)
     select_all = oracle_cursor.fetchall()
