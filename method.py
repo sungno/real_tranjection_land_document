@@ -25,8 +25,8 @@ def db_connect():
         from kr_land_deal
         where trunc(update_date) >= trunc(sysdate-7)
         and ( 
-                ( regexp_like(purpose,'공장|창고') and land_area_m2 >= 650 ) or
-                ( not regexp_like(purpose,'공장|창고') and land_area_m2 >= 1650 )
+                ( regexp_like(purpose,'공장|창고') and land_area_m2 >= 950 ) or
+                ( not regexp_like(purpose,'공장|창고') and land_area_m2 >= 950 )
             )
         order by update_date
     """
