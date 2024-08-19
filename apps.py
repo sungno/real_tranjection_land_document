@@ -42,7 +42,7 @@ try:
     oracle_connection, oracle_cursor, new_select_all = db_connect()
 
     # VPN 연결및 로그인
-    ip_connect_change()
+    # ip_connect_change()
 
     file_name = "실거래데이터_토지대장_결과.csv"
     fail_file_name = "실거래데이터_토지대장_실패.csv"
