@@ -60,7 +60,7 @@ try:
         user_id = random.choice(account.id_list)
         user_pw = account.pw_dict[user_id]
         print(user_id, user_pw)
-
+        print(pnu, bunji, addr_1, addr_2, addr_3, addr_4, addr_5)
         do = addr_1
         si = addr_2
         dong = addr_3
