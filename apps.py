@@ -74,7 +74,6 @@ try:
             addr_5 = addr_5.replace('산', "")
         else:
             san = '일반'
-
         if '-' in addr_5:
             jibun = addr_5.split("-")[0]
             boobun = addr_5.split("-")[1]
