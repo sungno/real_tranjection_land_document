@@ -60,11 +60,6 @@ def make_driver():
 
     options = uc.ChromeOptions()
 
-    # IP 변경
-    # ip = ip_checked()
-    # print(ip)
-    # PROXY = str(ip)
-    # options.add_argument(f'--proxy-server={PROXY}')
 
     # User Agent 속이기
     options.add_argument(f'--user-agent={UA}')

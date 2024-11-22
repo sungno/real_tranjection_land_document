@@ -1,3 +1,5 @@
+from selenium.common import TimeoutException
+
 from moduls import *
 from method import *
 import account
@@ -246,6 +248,15 @@ try:
             ### 민원신청하기
             wait.until(EC.presence_of_element_located((By.ID, "btn_end"))).click()
             print("민원신청하기 클릭")
+
+            # 팝업 처리
+            try:
+                temporary_wait = WebDriverWait(driver, 10)
+                elements = temporary_wait.until(EC.presence_of_element_located((By.CLASS_NAME, "survey_pop")))
+                wait.until(EC.presence_of_element_located((By.CLASS_NAME, "pop_btn_close"))).click()
+            except TimeoutException:
+                print("팝업 없음")
+
 
             driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
 

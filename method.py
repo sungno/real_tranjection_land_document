@@ -97,6 +97,24 @@ def ip_connect_change():
 
             time.sleep(1)
 
+def result_img():
+    """
+    가중치로 결과 도출
+    :return:
+    """
+#     target_img_path = r'C:\Users\ysn39\파이썬 주피터\장앤장\캡챠\target_captcha.png'    #타켓 이미지 경로
+    target_img_path = r'target_captcha.png'    #타켓 이미지 경로
+    img_width = 200 #타켓 이미지 넓이
+    img_height = 50 #타켓 이미지 높이
+    img_length = 6  #타켓 이미지가 포함한 문자 수
+    img_char = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}   #타켓 이미지안에 포함된 문자들
+#     weights_path = r'C:\Users\ysn39\파이썬 주피터\장앤장\캡챠\gove24_weights.h5' #학습 결과 가중치 경로
+    weights_path = r'gove24_weights.h5' #학습 결과 가중치 경로
+    AM = cc.ApplyModel(weights_path, img_width, img_height, img_length, img_char)   #결과 가중치를 가지는 모델 생성
+    pred = AM.predict(target_img_path)  #결과 도출
+    return pred
+
+
 ### 정부24 Login
 def gov_login(driver, wait, user_id, user_pw):
     print(user_id)
@@ -108,6 +126,19 @@ def gov_login(driver, wait, user_id, user_pw):
         wait.until(EC.presence_of_element_located((By.XPATH, """//button[text()='다음']"""))).click()
 
         wait.until(EC.presence_of_element_located((By.ID, 'pwd'))).send_keys(user_pw)
+
+        # 보안문자 캡처후 저장
+        element1 = wait.until(EC.presence_of_element_located((By.ID, 'cimg')))
+        element_png = element1.screenshot_as_png
+        with open("target_captcha.png", "wb") as file:
+            file.write(element_png)
+        # 캡처한 이미지 가중치로 결과값 str로 도출
+        captcha_number = result_img()
+
+        # 보안문자 입력
+        wait.until(EC.presence_of_element_located((By.ID, "answer"))).send_keys(captcha_number)
+        time.sleep(1)
+
         wait.until(EC.presence_of_element_located((By.XPATH, """//button[text()='로그인']"""))).click()
         time.sleep(1)
 
