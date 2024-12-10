@@ -109,7 +109,7 @@ def result_img():
     img_length = 6  #타켓 이미지가 포함한 문자 수
     img_char = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}   #타켓 이미지안에 포함된 문자들
 #     weights_path = r'C:\Users\ysn39\파이썬 주피터\장앤장\캡챠\gove24_weights.h5' #학습 결과 가중치 경로
-    weights_path = r'gove24_weights.h5' #학습 결과 가중치 경로
+    weights_path = r'gove24_weights_update.h5' #학습 결과 가중치 경로
     AM = cc.ApplyModel(weights_path, img_width, img_height, img_length, img_char)   #결과 가중치를 가지는 모델 생성
     pred = AM.predict(target_img_path)  #결과 도출
     return pred
@@ -120,11 +120,10 @@ def gov_login(driver, wait, user_id, user_pw):
     print(user_id)
     print(user_pw)
     while True:
-        driver.get("https://www.gov.kr/nlogin/?Mcode=10003&regType=ctab")
-        wait.until(EC.presence_of_element_located((By.ID, '아이디'))).click()
+        driver.get("https://www.gov.kr/nlogin/loginById")
         wait.until(EC.presence_of_element_located((By.ID, 'userId'))).send_keys(user_id)
-        wait.until(EC.presence_of_element_located((By.XPATH, """//button[text()='다음']"""))).click()
-
+        wait.until(EC.presence_of_element_located((By.ID, """genLogin"""))).click()
+        time.sleep(1)
         wait.until(EC.presence_of_element_located((By.ID, 'pwd'))).send_keys(user_pw)
 
         # 보안문자 캡처후 저장
@@ -139,7 +138,7 @@ def gov_login(driver, wait, user_id, user_pw):
         wait.until(EC.presence_of_element_located((By.ID, "answer"))).send_keys(captcha_number)
         time.sleep(1)
 
-        wait.until(EC.presence_of_element_located((By.XPATH, """//button[text()='로그인']"""))).click()
+        wait.until(EC.presence_of_element_located((By.ID, """genLogin"""))).click()
         time.sleep(1)
 
         if "비밀번호 변경" in wait.until(EC.presence_of_element_located((By.TAG_NAME, "body"))).text:
