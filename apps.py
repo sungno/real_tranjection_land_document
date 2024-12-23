@@ -132,19 +132,21 @@ try:
             wait.until(EC.presence_of_element_located((By.XPATH, """//a[text()='발급하기']"""))).click()
             print("발급하기 클릭")
             try:
-                wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow")))
+                # wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow")))
+                # time.sleep(3)
+                # wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow"))).click()
+                # print("펼쳐보기 클릭")
+                #
+                # # 토지(임야)대장열람 클릭(라디오버튼)
+                # wait.until(EC.presence_of_element_located(
+                #     (By.XPATH, """//a[@onclick="javascript:refreshFormRadio('03');"]""")))
+                # print("토지(임야)대장열람 클릭(라디오버튼) 체크")
+                # time.sleep(1)
+                # wait.until(EC.element_to_be_clickable(
+                #     (By.XPATH, """//a[@onclick="javascript:refreshFormRadio('03');"]"""))).click()
+                # print("토지(임야)대장열람 클릭(라디오버튼) 클릭")
+                wait.until(EC.presence_of_element_located((By.XPATH, "//span[text()='토지(임야)대장열람']")))
                 time.sleep(3)
-                wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow"))).click()
-                print("펼쳐보기 클릭")
-
-                # 토지(임야)대장열람 클릭(라디오버튼)
-                wait.until(EC.presence_of_element_located(
-                    (By.XPATH, """//a[@onclick="javascript:refreshFormRadio('03');"]""")))
-                print("토지(임야)대장열람 클릭(라디오버튼) 체크")
-                time.sleep(1)
-                wait.until(EC.element_to_be_clickable(
-                    (By.XPATH, """//a[@onclick="javascript:refreshFormRadio('03');"]"""))).click()
-                print("토지(임야)대장열람 클릭(라디오버튼) 클릭")
 
                 if san == '산':
                     wait.until(EC.presence_of_element_located((By.XPATH, """//label[text()='임야 대장']"""))).click()
@@ -161,25 +163,26 @@ try:
                 driver.execute_script("isValid();return false;")  # 검색버튼
                 print("검색버튼 클릭")
             except:
-                print("펼쳐보기 EXCEPTION!")
-                time.sleep(5)
-                driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
-                driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.HOME)
-                time.sleep(1)
-                wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow")))
-                time.sleep(10)
-                wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow"))).click()
-                print("펼쳐보기 클릭")
-
-                # 토지(임야)대장열람 클릭(라디오버튼)
-                wait.until(EC.presence_of_element_located(
-                    (By.XPATH, """//a[@onclick="javascript:refreshFormRadio('03');"]""")))
-                print("토지(임야)대장열람 클릭(라디오버튼) 체크")
-                time.sleep(1)
-                wait.until(EC.element_to_be_clickable(
-                    (By.XPATH, """//a[@onclick="javascript:refreshFormRadio('03');"]"""))).click()
-                print("토지(임야)대장열람 클릭(라디오버튼) 클릭")
-
+                # print("펼쳐보기 EXCEPTION!")
+                # time.sleep(5)
+                # driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
+                # driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.HOME)
+                # time.sleep(1)
+                # wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow")))
+                # time.sleep(10)
+                # wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow"))).click()
+                # print("펼쳐보기 클릭")
+                #
+                # # 토지(임야)대장열람 클릭(라디오버튼)
+                # wait.until(EC.presence_of_element_located(
+                #     (By.XPATH, """//a[@onclick="javascript:refreshFormRadio('03');"]""")))
+                # print("토지(임야)대장열람 클릭(라디오버튼) 체크")
+                # time.sleep(1)
+                # wait.until(EC.element_to_be_clickable(
+                #     (By.XPATH, """//a[@onclick="javascript:refreshFormRadio('03');"]"""))).click()
+                # print("토지(임야)대장열람 클릭(라디오버튼) 클릭")
+                wait.until(EC.presence_of_element_located((By.XPATH, "//span[text()='토지(임야)대장열람']")))
+                time.sleep(3)
                 if san == '산':
                     wait.until(EC.presence_of_element_located((By.XPATH, """//label[text()='임야 대장']"""))).click()
                     print("임야대장 클릭(산)")
