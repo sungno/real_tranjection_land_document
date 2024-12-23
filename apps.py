@@ -145,7 +145,7 @@ try:
                 # wait.until(EC.element_to_be_clickable(
                 #     (By.XPATH, """//a[@onclick="javascript:refreshFormRadio('03');"]"""))).click()
                 # print("토지(임야)대장열람 클릭(라디오버튼) 클릭")
-                wait.until(EC.presence_of_element_located((By.XPATH, "//span[text()='토지(임야)대장열람']")))
+                wait.until(EC.presence_of_element_located((By.XPATH, "//span[text()='토지(임야)대장열람']"))).click()
                 time.sleep(3)
 
                 if san == '산':
@@ -181,7 +181,7 @@ try:
                 # wait.until(EC.element_to_be_clickable(
                 #     (By.XPATH, """//a[@onclick="javascript:refreshFormRadio('03');"]"""))).click()
                 # print("토지(임야)대장열람 클릭(라디오버튼) 클릭")
-                wait.until(EC.presence_of_element_located((By.XPATH, "//span[text()='토지(임야)대장열람']")))
+                wait.until(EC.presence_of_element_located((By.XPATH, "//span[text()='토지(임야)대장열람']"))).click()
                 time.sleep(3)
                 if san == '산':
                     wait.until(EC.presence_of_element_located((By.XPATH, """//label[text()='임야 대장']"""))).click()
