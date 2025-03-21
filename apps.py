@@ -503,7 +503,9 @@ try:
                             if sh1.find_all('td')[2].text == '\n\n':
                                 pass
                             elif sh1.find_all('td')[2].text == '':
-                                pass
+                                if sh1.find_all('td')[3].text != "":
+                                    if '여백' not in sh1.find_all('td')[3].text:
+                                        sh_share_box.append(sh1.find_all('td')[2].text)
                             else:
                                 sh_share_box.append(sh1.find_all('td')[2].text)
 
