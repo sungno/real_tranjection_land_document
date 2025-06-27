@@ -265,8 +265,9 @@ try:
 
             ### 문서 열람후 새창
             time.sleep(5)
-            wait.until(EC.presence_of_element_located((By.CLASS_NAME, "ibtn.small.dark"))).click()  # 열람문서 클릭
+            wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn.secondary.xsm"))).click()  # 열람문서 클릭
             print("열람문서 클릭")
+            time.sleep(5)
             driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
 
             ### 지번-부번 과 열람문서의 지번과 일치하면 진행, 일치하지 않으면 새로고침후 다시 확인
