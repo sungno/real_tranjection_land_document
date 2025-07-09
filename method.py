@@ -105,11 +105,11 @@ def result_img():
 #     target_img_path = r'C:\Users\ysn39\파이썬 주피터\장앤장\캡챠\target_captcha.png'    #타켓 이미지 경로
     target_img_path = r'target_captcha.png'    #타켓 이미지 경로
     img_width = 200 #타켓 이미지 넓이
-    img_height = 50 #타켓 이미지 높이
+    img_height = 72 #타켓 이미지 높이
     img_length = 6  #타켓 이미지가 포함한 문자 수
     img_char = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}   #타켓 이미지안에 포함된 문자들
 #     weights_path = r'C:\Users\ysn39\파이썬 주피터\장앤장\캡챠\gove24_weights.h5' #학습 결과 가중치 경로
-    weights_path = r'gove24_weights_update.h5' #학습 결과 가중치 경로
+    weights_path = r'gove24_20250708.h5' #학습 결과 가중치 경로
     AM = cc.ApplyModel(weights_path, img_width, img_height, img_length, img_char)   #결과 가중치를 가지는 모델 생성
     pred = AM.predict(target_img_path)  #결과 도출
     return pred
@@ -120,46 +120,48 @@ def gov_login(driver, wait, user_id, user_pw):
     print(user_id)
     print(user_pw)
     while True:
-        driver.get("https://www.gov.kr/nlogin/loginById")
-        wait.until(EC.presence_of_element_located((By.ID, 'userId'))).send_keys(user_id)
-        wait.until(EC.presence_of_element_located((By.ID, """genLogin"""))).click()
-        time.sleep(1)
-        wait.until(EC.presence_of_element_located((By.ID, 'pwd'))).send_keys(user_pw)
+        driver.get("https://plus.gov.kr/login/loginIdPwd")
+        # 아이디 입력후 다음버튼 클릭
+        wait.until(EC.presence_of_element_located((By.ID, """input_id""")))
+        wait.until(EC.element_to_be_clickable((By.ID, """input_id"""))).send_keys(user_id)
+        time.sleep(random.uniform(1, 2))
+        wait.until(EC.presence_of_element_located((By.CLASS_NAME, """btn.lg.btn-login"""))).click()
 
-        # 보안문자 캡처후 저장
-        element1 = wait.until(EC.presence_of_element_located((By.ID, 'cimg')))
+        # 비밀번호 입력
+        wait.until(EC.presence_of_element_located((By.ID, """input_pwd""")))
+        wait.until(EC.element_to_be_clickable((By.ID, """input_pwd"""))).send_keys(user_pw)
+
+        # 캡차(보안문자) 이미지 캡쳐후 저장
+        element1 = wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'img-captcha')))
         element_png = element1.screenshot_as_png
         with open("target_captcha.png", "wb") as file:
             file.write(element_png)
-        # 캡처한 이미지 가중치로 결과값 str로 도출
-        captcha_number = result_img()
+
+        # 저장된 캡차(보안문자) 이미지 해독
+        capcha_number = result_img()
 
         # 보안문자 입력
-        wait.until(EC.presence_of_element_located((By.ID, "answer"))).send_keys(captcha_number)
+        wait.until(EC.presence_of_element_located((By.CLASS_NAME, "input.lg"))).send_keys(capcha_number)
         time.sleep(1)
+        # 로그인 버튼 클릭
+        wait.until(EC.presence_of_element_located((By.CLASS_NAME, """btn.lg.btn-login"""))).click()
 
-        wait.until(EC.presence_of_element_located((By.ID, """genLogin"""))).click()
-        time.sleep(1)
-
+        time.sleep(3)
         if "비밀번호 변경" in wait.until(EC.presence_of_element_located((By.TAG_NAME, "body"))).text:
-            print("비밀번호 나중에 변경하기")
-            wait.until(EC.presence_of_element_located((By.XPATH, """//a[text()='나중에 변경하기']"""))).click()
-            print('나중에 변경하기 클릭')
+            print("- 비밀번호 나중에 변경하기")
+            wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body'))).send_keys(Keys.END)
             time.sleep(1)
+            wait.until(EC.presence_of_element_located((By.CLASS_NAME, """btn.xlg.tertiary"""))).click()
+            print('- 다음에 변경하기 클릭')
+        time.sleep(3)
 
-        # 팝업 확인후 닫기
-        if 'system_pop_wrap' in driver.page_source:
-            wait = WebDriverWait(driver, 10)
-            elements = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "system_pop_wrap")))
-            elements.find_element(By.CLASS_NAME, "checkPopup_inspection250516").click()
-            time.sleep(3)
-
-        login_check = wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body'))).text
-        if '로그아웃' in login_check:
-            print('로그인 성공')
-            return "로그인 성공1"
-        elif '로그인' in login_check:
+        # 로그인 성공여부 체크
+        body_text = wait.until(EC.presence_of_element_located((By.TAG_NAME, "body"))).text
+        if '아이디 또는 비밀번호가 일치하지 않습니다.' in body_text:
             print("로그인 실패")
+        else:
+            print("로그인 성공")
+            return "로그인 성공"
 
 
 # COOL IP 제어
