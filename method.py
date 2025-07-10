@@ -155,6 +155,20 @@ def gov_login(driver, wait, user_id, user_pw):
             print('- 다음에 변경하기 클릭')
         time.sleep(3)
 
+        # '비밀번호 변경없이 진행합니다.' modal 처리
+        time.sleep(1)
+        body_text = wait.until(EC.presence_of_element_located((By.TAG_NAME, "body"))).text
+        if '변경 없이 진행합니다.' in body_text:
+            top_modal = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "iw-modal-alert.on")))
+            top_modal.find_element(By.CLASS_NAME, "btn.tertiary.close-modal").click()
+
+        # '정부24 개편 기념 이벤트' 모달 처리
+        time.sleep(1)
+        if 'iw-modal-auto main-popup on' in driver.page_source:
+            print("'정부24 개편 기념 이벤트' 모달 처리 완료")
+            popup_modal = wait.until(EC.presence_of_element_located((By.ID, "layerModal_main_popup")))
+            popup_modal.find_element(By.TAG_NAME, 'button').click()
+
         # 로그인 성공여부 체크
         body_text = wait.until(EC.presence_of_element_located((By.TAG_NAME, "body"))).text
         if '아이디 또는 비밀번호가 일치하지 않습니다.' in body_text:
@@ -162,7 +176,7 @@ def gov_login(driver, wait, user_id, user_pw):
         else:
             print("로그인 성공")
             return "로그인 성공"
-
+        time.sleep(1)
 
 # COOL IP 제어
 def ip_change_click():

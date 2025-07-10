@@ -12,7 +12,7 @@ from datetime import datetime
 
 print(1)
 print("Ver 3.0")
-print("2025-07-09")
+print("2025-07-10")
 
 def download_script(url):
     headers = {'Cache-Control': 'no-cache'}
@@ -256,23 +256,27 @@ try:
             wait.until(EC.presence_of_element_located((By.ID, "btn_end"))).click()
             print("민원신청하기 클릭")
 
-            # 팝업 처리
-            try:
-                temporary_wait = WebDriverWait(driver, 10)
-                elements = temporary_wait.until(EC.presence_of_element_located((By.CLASS_NAME, "survey_pop")))
-                wait.until(EC.presence_of_element_located((By.CLASS_NAME, "pop_btn_close"))).click()
-            except TimeoutException:
-                print("팝업 없음")
+            # # 팝업 처리
+            # try:
+            #     temporary_wait = WebDriverWait(driver, 10)
+            #     elements = temporary_wait.until(EC.presence_of_element_located((By.CLASS_NAME, "survey_pop")))
+            #     wait.until(EC.presence_of_element_located((By.CLASS_NAME, "pop_btn_close"))).click()
+            # except TimeoutException:
+            #     print("팝업 없음")
 
 
             driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
 
             ### 문서 열람후 새창
-            time.sleep(5)
-            wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn.secondary.xsm"))).click()  # 열람문서 클릭
+            WebDriverWait(driver, 30).until(
+                EC.presence_of_element_located((By.CLASS_NAME, "btn.secondary.xsm"))).click()  # 열람문서 클릭
             print("열람문서 클릭")
-            time.sleep(5)
-            driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
+
+            ### 열람된 문서로 새창 변환
+            while True:
+                if len(driver.window_handles) > 1:
+                    driver.switch_to.window(driver.window_handles[-1])
+                    break
 
             ### 지번-부번 과 열람문서의 지번과 일치하면 진행, 일치하지 않으면 새로고침후 다시 확인
             ### (5번 반복후 그래도 일치하지 않으면 예외처리하고 실패 목록에 넣기
