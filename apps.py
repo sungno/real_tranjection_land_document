@@ -10,7 +10,7 @@ from datetime import datetime
 # import types
 
 
-print(2)
+print(1)
 print("Ver 3.0")
 print("2025-07-11")
 
@@ -156,19 +156,6 @@ try:
             driver.execute_script("isValid();return false;")  # 검색버튼
             print("검색버튼 클릭")
             time.sleep(1)
-            elem = driver.find_element(By.ID, "btnAddress")  # 대상토지 소재지 검색
-            actions = ActionChains(driver)
-            actions.move_to_element(elem).click().perform()
-
-            print('대상 토지 소재지 주소검색 클릭')
-            time.sleep(1)
-            driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
-            print("새창변환")
-            time.sleep(1)
-            driver.find_element(By.NAME, "txtAddr").send_keys(dong)  # 동읍면 입력
-            print("동읍면 입력")
-            driver.execute_script("isValid();return false;")  # 검색버튼
-            print("검색버튼 클릭")
 
             aa = driver.find_elements(By.CSS_SELECTOR, "#resultList > a")
 
