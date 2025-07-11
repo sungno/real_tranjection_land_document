@@ -120,25 +120,30 @@ def gov_login(driver, wait, user_id, user_pw):
     print(user_id)
     print(user_pw)
     while True:
-        driver.get("https://plus.gov.kr/login/loginIdPwd")
-        # 아이디 입력후 다음버튼 클릭
-        wait.until(EC.presence_of_element_located((By.ID, """input_id""")))
-        wait.until(EC.element_to_be_clickable((By.ID, """input_id"""))).send_keys(user_id)
-        time.sleep(random.uniform(1, 2))
-        wait.until(EC.presence_of_element_located((By.CLASS_NAME, """btn.lg.btn-login"""))).click()
+        while True:
+            print('- 로그인 시도')
+            driver.get("https://plus.gov.kr/login/loginIdPwd")
+            # 아이디 입력후 다음버튼 클릭
+            wait.until(EC.presence_of_element_located((By.ID, """input_id""")))
+            wait.until(EC.element_to_be_clickable((By.ID, """input_id"""))).send_keys(user_id)
+            time.sleep(random.uniform(1, 2))
+            wait.until(EC.presence_of_element_located((By.CLASS_NAME, """btn.lg.btn-login"""))).click()
 
-        # 비밀번호 입력
-        wait.until(EC.presence_of_element_located((By.ID, """input_pwd""")))
-        wait.until(EC.element_to_be_clickable((By.ID, """input_pwd"""))).send_keys(user_pw)
+            # 비밀번호 입력
+            wait.until(EC.presence_of_element_located((By.ID, """input_pwd""")))
+            wait.until(EC.element_to_be_clickable((By.ID, """input_pwd"""))).send_keys(user_pw)
 
-        # 캡차(보안문자) 이미지 캡쳐후 저장
-        element1 = wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'img-captcha')))
-        element_png = element1.screenshot_as_png
-        with open("target_captcha.png", "wb") as file:
-            file.write(element_png)
+            # 캡차(보안문자) 이미지 캡쳐후 저장
+            element1 = wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'img-captcha')))
+            element_png = element1.screenshot_as_png
+            with open("target_captcha.png", "wb") as file:
+                file.write(element_png)
 
-        # 저장된 캡차(보안문자) 이미지 해독
-        capcha_number = result_img()
+            # 저장된 캡차(보안문자) 이미지 해독
+            capcha_number = result_img()
+            if len(capcha_number) == 6:
+                break
+            time.sleep(3)
 
         # 보안문자 입력
         wait.until(EC.presence_of_element_located((By.CLASS_NAME, "input.lg"))).send_keys(capcha_number)
