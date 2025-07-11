@@ -155,12 +155,12 @@ def gov_login(driver, wait, user_id, user_pw):
             print('- 다음에 변경하기 클릭')
         time.sleep(3)
 
-        # # '비밀번호 변경없이 진행합니다.' modal 처리
-        # time.sleep(1)
-        # body_text = wait.until(EC.presence_of_element_located((By.TAG_NAME, "body"))).text
-        # if '변경 없이 진행합니다.' in body_text:
-        #     top_modal = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "iw-modal-alert.on")))
-        #     top_modal.find_element(By.CLASS_NAME, "btn.tertiary.close-modal").click()
+        # '비밀번호 변경없이 진행합니다.' modal 처리
+        time.sleep(1)
+        body_text = wait.until(EC.presence_of_element_located((By.TAG_NAME, "body"))).text
+        if '변경 없이 진행합니다.' in body_text:
+            top_modal = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "iw-modal-alert.on")))
+            top_modal.find_element(By.CLASS_NAME, "btn.tertiary.close-modal").click()
 
         # '정부24 개편 기념 이벤트' 모달 처리
         time.sleep(1)
