@@ -10,7 +10,7 @@ from datetime import datetime
 # import types
 
 
-print(1)
+print(2)
 print("Ver 3.0")
 print("2025-07-11")
 
