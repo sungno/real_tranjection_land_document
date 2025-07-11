@@ -10,7 +10,7 @@ from datetime import datetime
 # import types
 
 
-print(1)
+print(2)
 print("Ver 3.0")
 print("2025-07-11")
 
@@ -128,10 +128,10 @@ try:
             print(do)
 
             print('토지임야 체크')
-            for c in wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "swiper-slide"))):
-                if '토지(임야)' in c.text:
+            for c in wait.until(EC.presence_of_all_elements_located((By.XPATH, """//span[text()='토지(임야)대장']"""))):
+                if '토지(임야)대장' in c.text:
                     c.click()
-                    print('토지(임야) 클릭')
+                    print("'토지(임야)대장' 클릭")
                     break
             wait.until(EC.presence_of_element_located((By.XPATH, """//a[text()='발급하기']"""))).click()
             print("발급하기 클릭")
