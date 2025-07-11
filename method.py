@@ -163,7 +163,7 @@ def gov_login(driver, wait, user_id, user_pw):
             top_modal.find_element(By.CLASS_NAME, "btn.tertiary.close-modal").click()
 
         # '정부24 개편 기념 이벤트' 모달 처리
-        time.sleep(1)
+        time.sleep(5)
         if 'iw-modal-auto main-popup on' in driver.page_source:
             print("'정부24 개편 기념 이벤트' 모달 처리 완료")
             popup_modal = wait.until(EC.presence_of_element_located((By.ID, "layerModal_main_popup")))
