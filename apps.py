@@ -10,7 +10,7 @@ from datetime import datetime
 # import types
 
 
-print(1)
+print(2
 print("Ver 3.0")
 print("2025-07-11")
 
@@ -205,10 +205,15 @@ try:
                 boobun)
             print('부번 입력 완료')
             ### 연혁 인쇄 유무(히스토리)
-            wait.until(EC.presence_of_element_located((By.XPATH, """//label[text()='인쇄함']"""))).click()
-            print(' 연혁 인쇄 유무 -> 인쇄함 클릭 ')
+            elem = wait.until(EC.presence_of_element_located((By.XPATH, """//label[text()='인쇄함']""")))
+            actions = ActionChains(driver)
+            actions.move_to_element(elem).click().perform()
+            print('연혁 인쇄 유무 -> 인쇄함 클릭 ')
+
             ### 민원신청하기
-            wait.until(EC.presence_of_element_located((By.ID, "btn_end"))).click()
+            elem = wait.until(EC.presence_of_element_located((By.ID, "btn_end")))
+            actions = ActionChains(driver)
+            actions.move_to_element(elem).click().perform()
             print("민원신청하기 클릭")
 
             # # 팝업 처리
