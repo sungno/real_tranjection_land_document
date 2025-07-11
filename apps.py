@@ -127,7 +127,6 @@ try:
             gov_login(driver, wait, user_id, user_pw)
             print(do)
 
-            print('토지임야 체크')
             for c in wait.until(EC.presence_of_all_elements_located((By.XPATH, """//span[text()='토지(임야)대장']"""))):
                 if '토지(임야)대장' in c.text:
                     c.click()
@@ -135,72 +134,41 @@ try:
                     break
             wait.until(EC.presence_of_element_located((By.XPATH, """//a[text()='발급하기']"""))).click()
             print("발급하기 클릭")
-            try:
-                # wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow")))
-                # time.sleep(3)
-                # wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow"))).click()
-                # print("펼쳐보기 클릭")
-                #
-                # # 토지(임야)대장열람 클릭(라디오버튼)
-                # wait.until(EC.presence_of_element_located(
-                #     (By.XPATH, """//a[@onclick="javascript:refreshFormRadio('03');"]""")))
-                # print("토지(임야)대장열람 클릭(라디오버튼) 체크")
-                # time.sleep(1)
-                # wait.until(EC.element_to_be_clickable(
-                #     (By.XPATH, """//a[@onclick="javascript:refreshFormRadio('03');"]"""))).click()
-                # print("토지(임야)대장열람 클릭(라디오버튼) 클릭")
-                wait.until(EC.presence_of_element_located((By.XPATH, "//span[text()='토지(임야)대장열람']"))).click()
-                time.sleep(3)
 
-                if san == '산':
-                    wait.until(EC.presence_of_element_located((By.XPATH, """//label[text()='임야 대장']"""))).click()
-                    print("임야대장 클릭(산)")
+            wait.until(EC.presence_of_element_located((By.XPATH, "//span[text()='토지(임야)대장열람']"))).click()
 
-                driver.find_element(By.ID, "btnAddress").click()  # 대상토지 소재지 검색
-                print('대상 토지 소재지 주소검색 클릭')
-                time.sleep(1)
-                driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
-                print("새창변환")
-                time.sleep(1)
-                driver.find_element(By.NAME, "txtAddr").send_keys(dong)  # 동읍면 입력
-                print("동읍면 입력")
-                driver.execute_script("isValid();return false;")  # 검색버튼
-                print("검색버튼 클릭")
-            except:
-                # print("펼쳐보기 EXCEPTION!")
-                # time.sleep(5)
-                # driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
-                # driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.HOME)
-                # time.sleep(1)
-                # wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow")))
-                # time.sleep(10)
-                # wait.until(EC.presence_of_element_located((By.CLASS_NAME, "btn_tab_arrow"))).click()
-                # print("펼쳐보기 클릭")
-                #
-                # # 토지(임야)대장열람 클릭(라디오버튼)
-                # wait.until(EC.presence_of_element_located(
-                #     (By.XPATH, """//a[@onclick="javascript:refreshFormRadio('03');"]""")))
-                # print("토지(임야)대장열람 클릭(라디오버튼) 체크")
-                # time.sleep(1)
-                # wait.until(EC.element_to_be_clickable(
-                #     (By.XPATH, """//a[@onclick="javascript:refreshFormRadio('03');"]"""))).click()
-                # print("토지(임야)대장열람 클릭(라디오버튼) 클릭")
-                wait.until(EC.presence_of_element_located((By.XPATH, "//span[text()='토지(임야)대장열람']"))).click()
-                time.sleep(3)
-                if san == '산':
-                    wait.until(EC.presence_of_element_located((By.XPATH, """//label[text()='임야 대장']"""))).click()
-                    print("임야대장 클릭(산)")
+            if san == '산':
+                wait.until(EC.presence_of_element_located((By.XPATH, """//label[text()='임야 대장']"""))).click()
+                print("임야대장 클릭(산)")
 
-                driver.find_element(By.ID, "btnAddress").click()  # 대상토지 소재지 검색
-                print('대상 토지 소재지 주소검색 클릭')
-                time.sleep(1)
-                driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
-                print("새창변환")
-                time.sleep(1)
-                driver.find_element(By.NAME, "txtAddr").send_keys(dong)  # 동읍면 입력
-                print("동읍면 입력")
-                driver.execute_script("isValid();return false;")  # 검색버튼
-                print("검색버튼 클릭")
+            time.sleep(1)
+            elem = driver.find_element(By.ID, "btnAddress")  # 대상토지 소재지 검색
+            actions = ActionChains(driver)
+            actions.move_to_element(elem).click().perform()
+
+            print('대상 토지 소재지 주소검색 클릭')
+            time.sleep(1)
+            driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
+            print("새창변환")
+            time.sleep(1)
+            driver.find_element(By.NAME, "txtAddr").send_keys(dong)  # 동읍면 입력
+            print("동읍면 입력")
+            driver.execute_script("isValid();return false;")  # 검색버튼
+            print("검색버튼 클릭")
+            time.sleep(1)
+            elem = driver.find_element(By.ID, "btnAddress")  # 대상토지 소재지 검색
+            actions = ActionChains(driver)
+            actions.move_to_element(elem).click().perform()
+
+            print('대상 토지 소재지 주소검색 클릭')
+            time.sleep(1)
+            driver.switch_to.window(driver.window_handles[-1])  # 새창 변환
+            print("새창변환")
+            time.sleep(1)
+            driver.find_element(By.NAME, "txtAddr").send_keys(dong)  # 동읍면 입력
+            print("동읍면 입력")
+            driver.execute_script("isValid();return false;")  # 검색버튼
+            print("검색버튼 클릭")
 
             aa = driver.find_elements(By.CSS_SELECTOR, "#resultList > a")
 
