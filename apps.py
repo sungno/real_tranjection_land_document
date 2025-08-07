@@ -620,11 +620,11 @@ try:
         driver_close(driver)
         print(f"   ■ 성공개수 : {success_cnt}")
         print(f"   ■ 실패개수 : {fail_cnt}")
-        try:
-            if ip_cnt % 50 == 0:
-                ip_change_click()
-        except:
-            print('★ 아이피 변경 실패')
+        # try:
+        #     if ip_cnt % 3 == 0:
+        #         ip_change_click()
+        # except:
+        #     print('★ 아이피 변경 실패')
         print()
     print('■■■■■■ 전체 수집 완료 ■■■■■■')
 
